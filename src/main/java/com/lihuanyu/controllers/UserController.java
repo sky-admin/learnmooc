@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Iterator;
+
 /**
  * Created by skyADMIN on 16/1/27.
  */
@@ -16,6 +18,13 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
+    @RequestMapping("/list")
+    @ResponseBody
+    public Iterator<User> list(){
+        Iterable<User> users = userDao.findAll();
+        return users.iterator();
+
+    }
 
     @RequestMapping("/create")
     @ResponseBody
