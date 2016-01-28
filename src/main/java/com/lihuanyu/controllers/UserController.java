@@ -26,6 +26,18 @@ public class UserController {
 
     }
 
+    @RequestMapping("/user")
+    @ResponseBody
+    public User find(long id){
+        User user = null;
+        try {
+            user = userDao.findById(id);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
     @RequestMapping("/create")
     @ResponseBody
     public String create(String name, String password) {

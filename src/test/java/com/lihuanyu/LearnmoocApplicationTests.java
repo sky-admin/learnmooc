@@ -1,5 +1,6 @@
 package com.lihuanyu;
 
+import com.lihuanyu.controllers.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -13,6 +14,9 @@ public class LearnmoocApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		UserController userController = new UserController();
+		userController.create("skyadmin","123456");
+		userController.find(1);
 	}
 
 }

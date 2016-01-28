@@ -1,6 +1,7 @@
 package com.lihuanyu.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 /**
@@ -14,11 +15,14 @@ public class User {
     private long id;
 
     private String no;
+    @NotNull
     private String nickname;
     private String avatar;
     private String name;
+    @NotNull
     private String password;
     private int role_type;
+    @NotNull
     private int status;
     private String major;
     private String academy;
