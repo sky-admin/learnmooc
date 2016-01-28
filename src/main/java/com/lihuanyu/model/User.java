@@ -1,8 +1,8 @@
 package com.lihuanyu.model;
 
 import javax.persistence.*;
+
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 
 /**
  * Created by skyADMIN on 16/1/27.
@@ -24,6 +24,7 @@ public class User {
     private int role_type;
     @NotNull
     private int status;
+    private String mail;
     private String major;
     private String academy;
 
@@ -33,13 +34,16 @@ public class User {
         this.id = id;
     }
 
-    public User(String name,String password){
-        this.name = name;
+    public User(String nickname,String password){
+        this.nickname = nickname;
         this.password = password;
+        this.status = 1;
+        this.mail = "123@qq.com";
     }
 
-    public User(String no,String nickname,String avatar,String name,String password,int role_type,int status,String major,String academy){
+    public User(String no,String mail,String nickname,String avatar,String name,String password,int role_type,int status,String major,String academy){
         this.no = no;
+        this.mail = mail;
         this.nickname = nickname;
         this.avatar = avatar;
         this.name = name;
@@ -128,5 +132,13 @@ public class User {
 
     public void setAcademy(String academy) {
         this.academy = academy;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
