@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserDao extends CrudRepository<User,Long>{
     public User findById(long id);
+    public User findByMail(String mail);
 }
