@@ -1,6 +1,7 @@
 package com.lihuanyu.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by skyADMIN on 16/1/27.
@@ -22,6 +23,7 @@ public class User {
     private String mail;
     private String major;
     private String academy;
+    private Date createDate;
 
     public User(){    }
 
@@ -32,7 +34,7 @@ public class User {
     public User(String nickname,String password){
         this.nickname = nickname;
         this.password = password;
-        this.status = 1;
+        this.status = 3;
         this.mail = "123@qq.com";
     }
 
@@ -47,6 +49,16 @@ public class User {
         this.status = status;
         this.major = major;
         this.academy = academy;
+    }
+
+    public User(String name, String mail, String password) {
+        this.nickname = name;
+        this.password = password;
+        this.mail = mail;
+        this.status = 3;
+        this.avatar = "http://121.42.206.53:8080/VoicePrint/zxcode.jpg";
+        this.role_type = 0;
+        createDate = new Date();
     }
 
     public long getId() {
