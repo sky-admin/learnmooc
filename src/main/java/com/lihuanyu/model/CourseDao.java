@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface CourseDao extends CrudRepository<Course,Long> {
-    public Course findbyId(long id);
+//    public Course findbyId(long id);
 }
