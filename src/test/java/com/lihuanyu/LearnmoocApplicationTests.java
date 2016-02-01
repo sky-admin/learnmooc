@@ -14,9 +14,7 @@ public class LearnmoocApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		UserController userController = new UserController();
-		userController.create("skyadmin","123456");
-		userController.find(1);
+
 	}
 
 }
