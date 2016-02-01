@@ -1,7 +1,7 @@
 package com.lihuanyu.controllers;
 
-import com.lihuanyu.model.User;
-import com.lihuanyu.model.UserDao;
+import com.lihuanyu.model.CustomUser;
+import com.lihuanyu.model.CustomUserDao;
 import com.lihuanyu.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,27 +24,27 @@ import static com.lihuanyu.utils.MD5Utils.encode;
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private CustomUserDao customUserDao;
     private static final double MODULUS = 2.56;//验证码计算系数
 
     @RequestMapping("/list")
     @ResponseBody
-    public Iterator<User> list() {
-        Iterable<User> users = userDao.findAll();
+    public Iterator<CustomUser> list() {
+        Iterable<CustomUser> users = customUserDao.findAll();
         return users.iterator();
 
     }
 
     @RequestMapping("/user")
     @ResponseBody
-    public User find(long id) {
-        User user = null;
+    public CustomUser find(long id) {
+        CustomUser customUser = null;
         try {
-            user = userDao.findById(id);
+            customUser = customUserDao.findById(id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return user;
+        return customUser;
     }
 
 
@@ -62,9 +62,9 @@ public class UserController {
         } else if ((timeSpan / 1000 / 60 / 60) > 48) {
             return "验证邮件失效，请重新验证";
         } else {
-            User user = userDao.findByName(name.getBytes("UTF-8").toString());
-            if (user != null) {
-                user.setStatus(1);
+            CustomUser customUser = customUserDao.findByName(name.getBytes("UTF-8").toString());
+            if (customUser != null) {
+                customUser.setStatus(1);
                 return "验证成功";
             } else {
                 return "验证失败  没有次用户 请重新注册";
@@ -79,19 +79,19 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> create(String name, String mail, String password) {
-        User user = null;
+        CustomUser customUser = null;
         Map<String, Object> userInfo = new HashMap<>();
-        if (userDao.findByName(name) == null) {
+        if (customUserDao.findByName(name) == null) {
             try {
-                user = new User(name, mail, encode(password));
-                userDao.save(user);
+                customUser = new CustomUser(name, mail, encode(password));
+                customUserDao.save(customUser);
                 userInfo.put("result", "注册成功");
-                userInfo.put("id", user.getId());
-                userInfo.put("nickname", user.getNickname());
-                userInfo.put("avatar", user.getAvatar());
-                userInfo.put("password", user.getPassword());
-                userInfo.put("roleType", user.getRole_type());
-                userInfo.put("mail", user.getMail());
+                userInfo.put("id", customUser.getId());
+                userInfo.put("nickname", customUser.getNickname());
+                userInfo.put("avatar", customUser.getAvatar());
+                userInfo.put("password", customUser.getPassword());
+                userInfo.put("roleType", customUser.getRole_type());
+                userInfo.put("mail", customUser.getMail());
 
                 ///邮件的内容
                 StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
