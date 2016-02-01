@@ -10,5 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CustomUserDao extends CrudRepository<CustomUser,Long>{
     public CustomUser findById(long id);
     public CustomUser findByMail(String mail);
-    public CustomUser findByName(String name);
+    public CustomUser findByNickname(String nickname);
 }

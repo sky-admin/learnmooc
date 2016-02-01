@@ -53,7 +53,7 @@ public class UserController {
     @RequestMapping(value = "/validate", method = RequestMethod.GET)
     @ResponseBody
     public String validate(String name, Double validateCode, Date sendDate) throws UnsupportedEncodingException {
-        System.out.println("用户名 is" + name);
+        System.out.println("用户名 is " + name);
         Date currentDate = new Date();
         long timeSpan = currentDate.getTime() - sendDate.getTime();
         if (name.length() * MODULUS != validateCode) {
@@ -61,7 +61,8 @@ public class UserController {
         } else if ((timeSpan / 1000 / 60 / 60) > 48) {
             return "验证邮件失效，请重新验证";
         } else {
-            CustomUser customUser = customUserDao.findByName(name.getBytes("UTF-8").toString());
+            CustomUser customUser = customUserDao.findByNickname(name);
+            System.out.println(customUser.getNickname());
             if (customUser != null) {
                 customUser.setStatus(1);
                 customUserDao.save(customUser);
@@ -82,7 +83,7 @@ public class UserController {
         CustomUser customUser = null;
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Map<String, Object> userInfo = new HashMap<>();
-        if (customUserDao.findByName(name) == null) {
+        if (customUserDao.findByNickname(name) == null) {
             try {
                 customUser = new CustomUser(name, mail, passwordEncoder.encode(password));
                 customUserDao.save(customUser);
