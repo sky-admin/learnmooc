@@ -4,6 +4,7 @@ import com.lihuanyu.model.CustomUser;
 import com.lihuanyu.model.CustomUserDao;
 import com.lihuanyu.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,8 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import static com.lihuanyu.utils.MD5Utils.encode;
 
 /**
  * Created by skyADMIN on 16/1/27.
@@ -65,6 +64,7 @@ public class UserController {
             CustomUser customUser = customUserDao.findByName(name.getBytes("UTF-8").toString());
             if (customUser != null) {
                 customUser.setStatus(1);
+                customUserDao.save(customUser);
                 return "验证成功";
             } else {
                 return "验证失败  没有次用户 请重新注册";
@@ -80,10 +80,11 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> create(String name, String mail, String password) {
         CustomUser customUser = null;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Map<String, Object> userInfo = new HashMap<>();
         if (customUserDao.findByName(name) == null) {
             try {
-                customUser = new CustomUser(name, mail, encode(password));
+                customUser = new CustomUser(name, mail, passwordEncoder.encode(password));
                 customUserDao.save(customUser);
                 userInfo.put("result", "注册成功");
                 userInfo.put("id", customUser.getId());
