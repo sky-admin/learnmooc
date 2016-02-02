@@ -6,9 +6,7 @@ import com.lihuanyu.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -77,9 +75,10 @@ public class UserController {
     /**
      * 注册
      */
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> create(String name, String mail, String password) {
+        System.out.println("name: " + name + "mail " + mail + "password " + password);
         CustomUser customUser = null;
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Map<String, Object> userInfo = new HashMap<>();
@@ -117,6 +116,7 @@ public class UserController {
                 System.out.println("发送邮件");
                 return userInfo;
             } catch (Exception ex) {
+                ex.printStackTrace();
                 userInfo.put("result", "注册失败");
                 return userInfo;
             }
