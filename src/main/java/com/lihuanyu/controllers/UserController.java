@@ -34,10 +34,10 @@ public class UserController {
 
     @RequestMapping("/user")
     @ResponseBody
-    public CustomUser find(long id) {
+    public CustomUser find(String nickname) {
         CustomUser customUser = null;
         try {
-            customUser = customUserDao.findById(id);
+            customUser = customUserDao.findById(nickname);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
