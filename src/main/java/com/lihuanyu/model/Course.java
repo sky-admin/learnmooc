@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * 课程/实验
  * Created by Explorer on 2016/1/29.
  */
 @Entity
@@ -21,15 +22,27 @@ public class Course {
     private String course_video_url;//课程视频的url
     private String thumbnail;//课程缩略图
     private int num;//学习人数
+    private String classifyName;//所属类别 如：前端开发
+    private boolean isRecommend;// true： 推荐课程/实验 会显示在首页的轮播种； false：默认是false
     private Date create_date;
 
-    public Course(){ }
-    public Course(long id){
+    public Course() {
+    }
+
+    public Course(long id) {
         this.id = id;
     }
 
     public long getId() {
         return id;
+    }
+
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
+    }
+
+    public String getClassifyName() {
+        return classifyName;
     }
 
     public String getCourse_name() {

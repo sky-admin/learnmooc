@@ -30,20 +30,26 @@ public class CustomUser {
     private String academy;
     private Date createDate;
 
-    public CustomUser(){    }
+    private long collectCourse;//收藏的课程id
+    private long collectArticle;//收藏的文章id
+    private long learnTime;//学习时长
+    private long exp;//经验值  (暂定为learnTime/2取整)
 
-    public CustomUser(long id){
+    public CustomUser() {
+    }
+
+    public CustomUser(long id) {
         this.id = id;
     }
 
-    public CustomUser(String nickname, String password){
+    public CustomUser(String nickname, String password) {
         this.nickname = nickname;
         this.password = password;
         this.status = 3;
         this.mail = "123@qq.com";
     }
 
-    public CustomUser(String no, String mail, String nickname, String avatar, String name, String password, int role_type, int status, String major, String academy){
+    public CustomUser(String no, String mail, String nickname, String avatar, String name, String password, int role_type, int status, String major, String academy) {
         this.no = no;
         this.mail = mail;
         this.nickname = nickname;
@@ -64,6 +70,46 @@ public class CustomUser {
         this.avatar = "http://121.42.206.53:8080/VoicePrint/zxcode.jpg";
         this.role_type = 0;
         createDate = new Date();
+    }
+
+    public void setLearnTime(long learnTime) {
+        this.learnTime = learnTime;
+    }
+
+    public void setExp(long exp) {
+        this.exp = exp;
+    }
+
+    public long getLearnTime() {
+        return learnTime;
+    }
+
+    public long getExp() {
+        return exp;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public void setCollectCourse(long collectCourse) {
+        this.collectCourse = collectCourse;
+    }
+
+    public void setCollectArticle(long collectArticle) {
+        this.collectArticle = collectArticle;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public long getCollectCourse() {
+        return collectCourse;
+    }
+
+    public long getCollectArticle() {
+        return collectArticle;
     }
 
     public long getId() {
