@@ -17,6 +17,12 @@ public class Article {
     private int num;//阅读人数
     private String img;//文章图片地址  没有就使用默认图片http://120.27.47.134/article/img_artilce.jpg
     private String articleUrl;//文章链接
+    private String abstractInfo;
+    private String authorid;
+    private String articleContent;
+
+    public Article() {
+    }
 
     public Article(String title, String articleUrl) {
         this.title = title;
@@ -69,5 +75,29 @@ public class Article {
 
     public String getArticleUrl() {
         return articleUrl;
+    }
+
+    public String getAbstractInfo() {
+        return abstractInfo;
+    }
+
+    public void setAbstractInfo(String abstractInfo) {
+        this.abstractInfo = abstractInfo;
+    }
+
+    public String getAuthorid() {
+        return authorid;
+    }
+
+    public void setAuthorid(String authorid) {
+        this.authorid = authorid;
+    }
+
+    public String getArticleContent() {
+        return articleContent;
+    }
+
+    public void setArticleContent(String articleContent) {
+        this.articleContent = articleContent;
     }
 }

@@ -1,5 +1,8 @@
 package com.lihuanyu.controllers;
 
+import com.lihuanyu.dto.ArticleList;
+import com.lihuanyu.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ArticleController {
 
-    @RequestMapping("/articles")
-    public void showAriticles(){
+    @Autowired
+    private ArticleService articleService;
 
+    @RequestMapping("/articles")
+    public ArticleList showAriticles(){
+        return articleService.getArticleList();
     }
 }
