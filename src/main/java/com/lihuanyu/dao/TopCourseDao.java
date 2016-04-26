@@ -1,5 +1,6 @@
-package com.lihuanyu.model;
+package com.lihuanyu.dao;
 
+import com.lihuanyu.model.TopCourse;
 import org.springframework.data.repository.CrudRepository;
 
 /**

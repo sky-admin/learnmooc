@@ -1,5 +1,6 @@
-package com.lihuanyu.model;
+package com.lihuanyu.dao;
 
+import com.lihuanyu.model.Comment;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
