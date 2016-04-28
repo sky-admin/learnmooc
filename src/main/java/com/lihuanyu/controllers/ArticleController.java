@@ -1,5 +1,6 @@
 package com.lihuanyu.controllers;
 
+import com.lihuanyu.dto.ArticleAll;
 import com.lihuanyu.dto.ArticleList;
 import com.lihuanyu.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,10 @@ public class ArticleController {
     @RequestMapping("/articles")
     public ArticleList showAriticles(){
         return articleService.getArticleList();
+    }
+
+    @RequestMapping("/articleall")
+    public ArticleAll showAllAritcles(){
+        return articleService.getAllArticleList();
     }
 }
