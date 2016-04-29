@@ -23,8 +23,8 @@ public class CommentService {
     @Autowired
     private CustomUserDao customUserDao;
 
-    public CommentDto getCommentAll(){
-        Iterable<Comment> comments = commentDao.findAll();
+    public CommentDto getComment(long courseid){
+        Iterable<Comment> comments = commentDao.findByCourseId(courseid);
         Iterator<Comment> it = comments.iterator();
         CommentDto commentDto = new CommentDto();
         ArrayList<CommentDto.CommentList> commentLists = new ArrayList<>();

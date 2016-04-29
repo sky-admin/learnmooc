@@ -12,5 +12,5 @@ import java.util.List;
 @Transactional
 public interface CommentDao extends CrudRepository<Comment,Long> {
     public Comment findById(long id);
-    public List<Comment> findByCourseId(long id);
+    public Iterable<Comment> findByCourseId(long id);
 }

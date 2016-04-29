@@ -16,7 +16,7 @@ public class CommentController {
     private CommentService commentService;
 
     @RequestMapping("/comment")
-    public CommentDto showComment(){
-        return commentService.getCommentAll();
+    public CommentDto showComment(long courseid){
+        return commentService.getComment(courseid);
     }
 }
