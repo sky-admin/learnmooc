@@ -16,6 +16,8 @@ public class Section {
     private long chapterId;//本节所属 章 的id
     private String sectionContent;//节内容（使用分号 ;隔开）
 
+    public Section(){}
+
     public Section(long chapterId, String sectionContent) {
         this.chapterId = chapterId;
         this.sectionContent = sectionContent;

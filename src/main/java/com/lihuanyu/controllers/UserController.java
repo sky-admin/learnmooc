@@ -1,7 +1,7 @@
 package com.lihuanyu.controllers;
 
 import com.lihuanyu.model.CustomUser;
-import com.lihuanyu.model.CustomUserDao;
+import com.lihuanyu.dao.CustomUserDao;
 import com.lihuanyu.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +17,7 @@ import java.util.Map;
 /**
  * Created by skyADMIN on 16/1/27.
  */
+@RequestMapping("/user")
 @Controller
 public class UserController {
 
@@ -29,19 +30,6 @@ public class UserController {
     public Iterator<CustomUser> list() {
         Iterable<CustomUser> users = customUserDao.findAll();
         return users.iterator();
-
-    }
-
-    @RequestMapping("/user")
-    @ResponseBody
-    public CustomUser find(String nickname) {
-        CustomUser customUser = null;
-        try {
-            customUser = customUserDao.findByNickname(nickname);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return customUser;
     }
 
     @RequestMapping(value = "/user_info",method = RequestMethod.GET)

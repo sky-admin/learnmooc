@@ -2,7 +2,7 @@ package com.lihuanyu.controllers;
 
 
 import com.lihuanyu.model.TopCourse;
-import com.lihuanyu.model.TopCourseDao;
+import com.lihuanyu.dao.TopCourseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

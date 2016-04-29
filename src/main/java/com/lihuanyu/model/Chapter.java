@@ -15,6 +15,8 @@ public class Chapter {
     private long courseId;//本章所属课程的id
     private String chapterName;//本章名称
 
+    public Chapter(){}
+
     public Chapter(long courseId, String chapterName) {
         this.courseId = courseId;
         this.chapterName = chapterName;
