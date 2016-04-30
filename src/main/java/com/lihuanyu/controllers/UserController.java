@@ -5,43 +5,50 @@ import com.lihuanyu.dao.CustomUserDao;
 import com.lihuanyu.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
  * Created by skyADMIN on 16/1/27.
  */
 @RequestMapping("/user")
-@Controller
+@RestController
 public class UserController {
 
     @Autowired
+    private HttpSession httpSession;
+
+    @Autowired
     private CustomUserDao customUserDao;
+
     private static final double MODULUS = 2.56;//验证码计算系数
 
-    @RequestMapping("/list")
-    @ResponseBody
-    public Iterator<CustomUser> list() {
-        Iterable<CustomUser> users = customUserDao.findAll();
-        return users.iterator();
-    }
-
-    @RequestMapping(value = "/user_info",method = RequestMethod.GET)
-    @ResponseBody
-    public CustomUser getUserInfo(String nickname) {
+    @RequestMapping("/user_info")
+    public CustomUser getUserInfo(String nickname){
         CustomUser customUser = null;
         try {
             customUser = customUserDao.findByNickname(nickname);
-        } catch (Exception ex) {
+        }catch (Exception ex){
             ex.printStackTrace();
         }
         return customUser;
+    }
+
+    @RequestMapping("/login")
+    public String doLogin(String email, String password){
+        CustomUser customUser = customUserDao.findByMail(email);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (passwordEncoder.matches(password,customUser.getPassword())){
+            httpSession.setAttribute("user",customUser);
+            return "success";
+        }else {
+            return "failed";
+        }
     }
 
 
@@ -75,7 +82,7 @@ public class UserController {
     /**
      * 注册
      */
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/create",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> create(String name, String mail, String password) {
         System.out.println("name: " + name + "mail " + mail + "password " + password);
@@ -96,7 +103,7 @@ public class UserController {
 
                 ///邮件的内容
                 StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-                sb.append("<a href=\"http://localhost:8080/validate?&name=");
+                sb.append("<a href=\"http://localhost:8080/user/validate?&name=");
                 sb.append(name);
                 sb.append("&validateCode=");
                 Double validateCode = name.length() * MODULUS;
