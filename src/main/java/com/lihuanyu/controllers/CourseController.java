@@ -14,6 +14,12 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @RequestMapping("/maincourse")
+    public void getMainCourse(){
+        courseService.getMainCourse();
+        return ;
+    }
+
     @RequestMapping("/historycourse")
     public void getHistoryCourse(){
         return;
