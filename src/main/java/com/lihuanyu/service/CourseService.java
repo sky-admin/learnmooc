@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by skyADMIN on 16/5/1.
@@ -28,25 +27,36 @@ public class CourseService {
         return new Sort(Sort.Direction.DESC, "createDate");
     }
 
-    public void getMainCourse() {
+    public MainCourseJson getMainCourse() {
         MainCourseJson mainCourseJson = new MainCourseJson();
         Iterable<Course> recommendCourses = courseDao.findByIsRecommend(true);
         mainCourseJson.topCourse = dealTopCourse(recommendCourses);
 
         Iterable<Course> courses = courseDao.findAll();
-
+        mainCourseJson = dealMainCourse(mainCourseJson,courses);
+        return mainCourseJson;
     }
 
 
-    private void dealMainCourse(MainCourseJson mainCourseJson, Iterable<Course> courses) {
+    private MainCourseJson dealMainCourse(MainCourseJson mainCourseJson, Iterable<Course> courses) {
         ArrayList<MainCourseJson.ListCourse> listCourses = new ArrayList<>();
         int num = 0;
         for(Course course : courses){
             if (num >= 7){
+                mainCourseJson.more = "/courselistall";
                 break;
             }
-
+            MainCourseJson.ListCourse listCourse = new MainCourseJson().new ListCourse();
+            listCourse.courseId = (int) course.getId();
+            listCourse.courseName = course.getCourse_name();
+            listCourse.num = course.getNum();
+            listCourse.pubdate = course.getCreate_date().toString();
+            listCourse.thumbnailUrl = course.getThumbnail();
+            listCourses.add(listCourse);
+            num++;
         }
+        mainCourseJson.listCourse = listCourses;
+        return mainCourseJson;
     }
 
     /**
