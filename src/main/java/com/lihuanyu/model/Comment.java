@@ -26,6 +26,12 @@ public class Comment {
         this.id = id;
     }
 
+    public Comment(String commentContent, long fromUserId, long courseId, Date create_date) {
+        this.commentContent = commentContent;
+        this.fromUserId = fromUserId;
+        this.courseId = courseId;
+        this.create_date = create_date;
+    }
 
     public long getCourseId() {
         return courseId;
