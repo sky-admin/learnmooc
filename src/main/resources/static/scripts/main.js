@@ -1,0 +1,1 @@
+"use strict";$(document).ready(function(){$(".ui.form").form({fields:{psw:{rules:[{type:"match[repsw]",prompt:"两次密码不一致"}]}}})});
