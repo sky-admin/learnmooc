@@ -5,6 +5,7 @@ import com.lihuanyu.dao.CustomUserDao;
 import com.lihuanyu.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -136,34 +137,6 @@ public class UserController {
 
 
     /**
-     * 密码重置邮件回执处理
-     */
-    @RequestMapping(value = "/reset", method = RequestMethod.GET)
-    @ResponseBody
-    public String resetPassword(String mail, Double validateCode, Date sendDate) throws UnsupportedEncodingException {
-        System.out.println("邮箱 is " + mail);
-        Date currentDate = new Date();
-        long timeSpan = currentDate.getTime() - sendDate.getTime();
-        if (mail.length() * MODULUS != validateCode) {
-            return "非法的验证邮件";
-        } else if ((timeSpan / 1000 / 60 / 60) > 24) {
-            return "验证邮件失效，请重新验证";
-        } else {
-            CustomUser customUser = customUserDao.findByMail(mail);
-            System.out.println(customUser.getMail());
-            if (customUser != null) {
-
-                return "验证成功";
-            } else {
-                return "没有此用户";
-            }
-        }
-
-    }
-
-
-
-    /**
      * 发送重置密码邮件
      */
     @RequestMapping(value = "/reset_mail",method = RequestMethod.POST)
@@ -176,14 +149,14 @@ public class UserController {
 
                 ///邮件的内容
                 StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-                sb.append("<a href=\"http://120.27.47.134:8080/validate?&mail=");
+                sb.append("<a href=\"http://120.27.47.134:8080/reset_pager?&mail=");
                 sb.append(mail);
                 sb.append("&validateCode=");
                 Double validateCode = mail.length() * MODULUS;
                 sb.append(validateCode);
                 sb.append("&sendDate=");
                 sb.append(new Date());
-                sb.append("\">http://120.27.47.134:8080/validate?&mail=");
+                sb.append("\">http://120.27.47.134:8080/reset_pager?&mail=");
                 sb.append(mail);
                 sb.append("&validateCode=");
                 sb.append(validateCode);
@@ -204,4 +177,5 @@ public class UserController {
         }
 
     }
+
 }
