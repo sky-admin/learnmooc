@@ -82,7 +82,7 @@ public class UserController {
     /**
      * 注册
      */
-    @RequestMapping(value = "/create",method = RequestMethod.GET)
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> create(String name, String mail, String password) {
         System.out.println("name: " + name + "mail " + mail + "password " + password);
