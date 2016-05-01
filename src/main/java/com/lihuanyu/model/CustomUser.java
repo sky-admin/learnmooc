@@ -30,8 +30,8 @@ public class CustomUser {
     private String academy;
     private Date createDate;
 
-    private long collectCourse;//收藏的课程id
-    private long collectArticle;//收藏的文章id
+    private long collectCourse;//收藏的课程 在collected_course表中的id
+    private long collectArticle;//收藏的文章 在collected_article表中的id
     private long learnTime;//学习时长
     private long exp;//经验值  (暂定为learnTime/2取整)
 
@@ -67,7 +67,7 @@ public class CustomUser {
         this.password = password;
         this.mail = mail;
         this.status = 3;
-        this.avatar = "http://121.42.206.53:8080/VoicePrint/zxcode.jpg";
+        this.avatar = "http://120.27.47.134/avatar/default_avatar.png";
         this.role_type = 0;
         createDate = new Date();
     }
