@@ -29,10 +29,10 @@ public class UserController {
     private static final double MODULUS = 2.56;//验证码计算系数
 
     @RequestMapping("/user_info")
-    public CustomUser getUserInfo(String nickname){
+    public CustomUser getUserInfo(String mail){
         CustomUser customUser = null;
         try {
-            customUser = customUserDao.findByNickname(nickname);
+            customUser = customUserDao.findByMail(mail);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class UserController {
                 customUserDao.save(customUser);
                 return "验证成功";
             } else {
-                return "验证失败  没有次用户 请重新注册";
+                return "验证失败  没有此用户 请重新注册";
             }
         }
 
@@ -102,15 +102,15 @@ public class UserController {
                 userInfo.put("mail", customUser.getMail());
 
                 ///邮件的内容
-                StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-                sb.append("<a href=\"http://localhost:8080/user/validate?&name=");
+                StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时有效，否则重新注册账号，链接只能使用一次，请尽快激活 ！</br>");
+                sb.append("<a href=\"http://120.27.47.134:8080/user/validate?&name=");
                 sb.append(name);
                 sb.append("&validateCode=");
                 Double validateCode = name.length() * MODULUS;
                 sb.append(validateCode);
                 sb.append("&sendDate=");
                 sb.append(new Date());
-                sb.append("\">http://localhost:8080/validate?&mail=");
+                sb.append("\">http://120.27.47.134:8080/validate?&mail=");
                 sb.append(name);
                 sb.append("&validateCode=");
                 sb.append(validateCode);
@@ -176,14 +176,14 @@ public class UserController {
 
                 ///邮件的内容
                 StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-                sb.append("<a href=\"http://localhost:8080/validate?&mail=");
+                sb.append("<a href=\"http://120.27.47.134:8080/validate?&mail=");
                 sb.append(mail);
                 sb.append("&validateCode=");
                 Double validateCode = mail.length() * MODULUS;
                 sb.append(validateCode);
                 sb.append("&sendDate=");
                 sb.append(new Date());
-                sb.append("\">http://localhost:8080/validate?&mail=");
+                sb.append("\">http://120.27.47.134:8080/validate?&mail=");
                 sb.append(mail);
                 sb.append("&validateCode=");
                 sb.append(validateCode);
