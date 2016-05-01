@@ -2,6 +2,7 @@ package com.lihuanyu.service;
 
 import com.lihuanyu.dao.CourseDao;
 import com.lihuanyu.dao.HistoryDao;
+import com.lihuanyu.dto.CourseList;
 import com.lihuanyu.dto.MainCourseJson;
 import com.lihuanyu.model.Course;
 import com.lihuanyu.model.History;
@@ -23,8 +24,35 @@ public class CourseService {
     @Autowired
     private CourseDao courseDao;
 
-    private Sort sortByIdDesc() {
+    private Sort sortByCreateDateDesc() {
         return new Sort(Sort.Direction.DESC, "createDate");
+    }
+
+    public CourseList getCouseListByPage(int page) {
+        CourseList courseList = new CourseList();
+        courseList.listCourse = new ArrayList<>();
+        Iterable<Course> courses = courseDao.findAll();
+        int begin = (page - 1) * 7;
+        int num = 0;
+        for (Course course : courses) {
+            if (num <= begin) {
+                num++;
+            } else {
+                if (num >= page * 7) {
+                    courseList.more = "/courselist?page=" + (page + 1);
+                    break;
+                }
+                CourseList.ListCourse listCours = new CourseList().new ListCourse();
+                listCours.courseId = course.getId();
+                listCours.courseName = course.getCourse_name();
+                listCours.num = course.getNum();
+                listCours.pubdate = course.getCreate_date().toString();
+                listCours.thumbnailUrl = course.getThumbnail();
+                courseList.listCourse.add(listCours);
+                num++;
+            }
+        }
+        return courseList;
     }
 
     public MainCourseJson getMainCourse() {
@@ -33,17 +61,16 @@ public class CourseService {
         mainCourseJson.topCourse = dealTopCourse(recommendCourses);
 
         Iterable<Course> courses = courseDao.findAll();
-        mainCourseJson = dealMainCourse(mainCourseJson,courses);
+        mainCourseJson = dealMainCourse(mainCourseJson, courses);
         return mainCourseJson;
     }
-
 
     private MainCourseJson dealMainCourse(MainCourseJson mainCourseJson, Iterable<Course> courses) {
         ArrayList<MainCourseJson.ListCourse> listCourses = new ArrayList<>();
         int num = 0;
-        for(Course course : courses){
-            if (num >= 7){
-                mainCourseJson.more = "/courselistall";
+        for (Course course : courses) {
+            if (num >= 7) {
+                mainCourseJson.more = "/courselist?page=2";
                 break;
             }
             MainCourseJson.ListCourse listCourse = new MainCourseJson().new ListCourse();
@@ -78,7 +105,7 @@ public class CourseService {
     }
 
     public void getHistoryCourse(long uid) {
-        Iterable<History> histories = historyDao.findByCustomUserId(uid, sortByIdDesc());
+        Iterable<History> histories = historyDao.findByCustomUserId(uid, sortByCreateDateDesc());
 
     }
 

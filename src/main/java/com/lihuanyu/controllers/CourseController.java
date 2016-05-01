@@ -1,5 +1,6 @@
 package com.lihuanyu.controllers;
 
+import com.lihuanyu.dto.CourseList;
 import com.lihuanyu.dto.MainCourseJson;
 import com.lihuanyu.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class CourseController {
         return courseService.getMainCourse();
     }
 
-    @RequestMapping("/courselistpage")
-    public void getAllCourse(int page){
-
+    @RequestMapping("/courselist")
+    public CourseList getAllCourse(int page){
+        return courseService.getCouseListByPage(page);
     }
 
     @RequestMapping("/historycourse")
