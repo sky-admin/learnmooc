@@ -27,5 +27,5 @@ hs_err_pid*
 
 # User files #
 learnmooc.iml
-application.properties
+src/main/resources/application.yml
 application-production.yml
