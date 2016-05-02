@@ -5,6 +5,7 @@ import com.lihuanyu.model.CustomUser;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +49,9 @@ public class ResetPwdController {
     public String resetPassword(HttpServletRequest request, String newPwd) throws UnsupportedEncodingException {
         String mail = (String)request.getSession().getAttribute("mail");
         CustomUser user = customUserDao.findByMail(mail);
-        user.setPassword(newPwd);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(newPwd));
+        customUserDao.save(user);
         return "passwordchangesuccess";
     }
 }
