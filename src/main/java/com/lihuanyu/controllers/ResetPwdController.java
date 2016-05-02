@@ -49,6 +49,6 @@ public class ResetPwdController {
         String mail = (String)request.getSession().getAttribute("mail");
         CustomUser user = customUserDao.findByMail(mail);
         user.setPassword(newPwd);
-        return "修改成功,请用新密码登录";
+        return "passwordchangesuccess";
     }
 }
