@@ -33,10 +33,16 @@ public class CommentController {
             Comment comment = new Comment(commentContent, userId, courseId, new Date());
             commentDao.save(comment);
             return "发布成功";
-        }catch (Exception e){
+        } catch (Exception e) {
             return "发布失败,请重试";
         }
 
+    }
+
+    @RequestMapping(value = "/ones_comments", method = RequestMethod.GET)
+    public String getOnesComments(long userId) {
+        int onesCommentNum = commentService.getOnesCommentNum(userId);
+        return onesCommentNum + "";
     }
 
 }

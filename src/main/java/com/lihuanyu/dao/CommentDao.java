@@ -13,4 +13,5 @@ import java.util.List;
 public interface CommentDao extends CrudRepository<Comment,Long> {
     public Comment findById(long id);
     public Iterable<Comment> findByCourseId(long id);
+    public List<Comment> findByFromUserId(long id);
 }

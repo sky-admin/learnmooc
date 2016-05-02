@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by skyADMIN on 16/4/29.
@@ -23,12 +24,12 @@ public class CommentService {
     @Autowired
     private CustomUserDao customUserDao;
 
-    public CommentDto getComment(long courseid){
+    public CommentDto getComment(long courseid) {
         Iterable<Comment> comments = commentDao.findByCourseId(courseid);
         Iterator<Comment> it = comments.iterator();
         CommentDto commentDto = new CommentDto();
         ArrayList<CommentDto.CommentList> commentLists = new ArrayList<>();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             Comment comment = it.next();
             CommentDto.CommentList commentList = new CommentDto().new CommentList();
             commentList.commentContent = comment.getCommentContent();
@@ -42,5 +43,13 @@ public class CommentService {
         }
         commentDto.comment = commentLists;
         return commentDto;
+    }
+
+    /**
+     *获取某个用户的评论总数
+     */
+    public int getOnesCommentNum(long id) {
+        List<Comment> commentList = commentDao.findByFromUserId(id);
+        return commentList.size();
     }
 }
