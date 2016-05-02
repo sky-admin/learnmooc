@@ -46,11 +46,11 @@ public class ResetPwdController {
      */
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
     @ResponseBody
-    public String resetPassword(HttpServletRequest request, String newPwd) throws UnsupportedEncodingException {
+    public String resetPassword(HttpServletRequest request, String psw) throws UnsupportedEncodingException {
         String mail = (String)request.getSession().getAttribute("mail");
         CustomUser user = customUserDao.findByMail(mail);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(passwordEncoder.encode(newPwd));
+        user.setPassword(passwordEncoder.encode(psw));
         customUserDao.save(user);
         return "passwordchangesuccess";
     }
