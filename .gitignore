@@ -29,3 +29,4 @@ hs_err_pid*
 learnmooc.iml
 src/main/resources/application.yml
 application-production.yml
+.idea
