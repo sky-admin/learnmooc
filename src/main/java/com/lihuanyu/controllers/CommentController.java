@@ -2,6 +2,7 @@ package com.lihuanyu.controllers;
 
 import com.lihuanyu.dao.CommentDao;
 import com.lihuanyu.dto.CommentDto;
+import com.lihuanyu.dto.CommentNumDto;
 import com.lihuanyu.model.Comment;
 import com.lihuanyu.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,8 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/ones_comments", method = RequestMethod.GET)
-    public String getOnesComments(long userId) {
-        int onesCommentNum = commentService.getOnesCommentNum(userId);
-        return onesCommentNum + "";
+    public CommentNumDto getOnesComments(long userId) {
+        return commentService.getOnesCommentNum(userId);
     }
 
 }
