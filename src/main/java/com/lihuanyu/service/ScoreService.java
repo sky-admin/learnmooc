@@ -25,7 +25,7 @@ public class ScoreService {
         ArrayList<ScoreDto.scoreInfo> scoreList = new ArrayList<>();
         for ( Score score:scoreIterable) {
             ScoreDto.scoreInfo scoreData = new ScoreDto().new scoreInfo();
-            scoreData.courseName = courseDao.findById(score.getCourseOrExptId()).getCourse_name();
+            scoreData.courseName = courseDao.findById(score.getCourseOrExptId()).getCoursename();
             scoreData.scores = score.getScores();
             scoreList.add(scoreData);
         }

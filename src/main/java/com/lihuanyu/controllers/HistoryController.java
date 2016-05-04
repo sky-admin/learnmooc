@@ -28,7 +28,7 @@ public class HistoryController {
     @RequestMapping(value = "/submit_history", method = RequestMethod.GET)
     public String saveHistory(long userId, long courseId) {
         Course course = courseDao.findById(courseId);
-        History history = new History(userId, courseId, course.getCourse_name(), new Date());
+        History history = new History(userId, courseId, course.getCoursename(), new Date());
         historyDao.save(history);
         return "success";
     }

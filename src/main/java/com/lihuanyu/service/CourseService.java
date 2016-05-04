@@ -15,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by skyADMIN on 16/5/1.
@@ -64,7 +63,7 @@ public class CourseService {
             if (classifyData.classifyName.equals(course.getClassifyName())){
                 CourseClassify.CourseInfo courseInfo = new CourseClassify().new CourseInfo();
                 courseInfo.courseId = course.getId();
-                courseInfo.courseName = course.getCourse_name();
+                courseInfo.courseName = course.getCoursename();
                 courseInfo.num = course.getNum();
                 courseInfo.thumbnail = pic[(int) course.getId()-1];
                 classifyData.courseInfo.add(courseInfo);
@@ -77,7 +76,7 @@ public class CourseService {
                 classifyData.classifyName = course.getClassifyName();
                 CourseClassify.CourseInfo courseInfo = new CourseClassify().new CourseInfo();
                 courseInfo.courseId = course.getId();
-                courseInfo.courseName = course.getCourse_name();
+                courseInfo.courseName = course.getCoursename();
                 courseInfo.num = course.getNum();
                 courseInfo.thumbnail = pic[(int) course.getId()-1];
                 classifyData.courseInfo.add(courseInfo);
@@ -103,7 +102,7 @@ public class CourseService {
                 }
                 CourseList.ListCourse listCours = new CourseList().new ListCourse();
                 listCours.courseId = course.getId();
-                listCours.courseName = course.getCourse_name();
+                listCours.courseName = course.getCoursename();
                 listCours.num = course.getNum();
                 listCours.pubdate = course.getCreate_date().toString();
                 listCours.thumbnailUrl = course.getThumbnail();
@@ -134,7 +133,7 @@ public class CourseService {
             }
             MainCourseJson.ListCourse listCourse = new MainCourseJson().new ListCourse();
             listCourse.courseId = (int) course.getId();
-            listCourse.courseName = course.getCourse_name();
+            listCourse.courseName = course.getCoursename();
             listCourse.num = course.getNum();
             listCourse.pubdate = course.getCreate_date().toString();
             listCourse.thumbnailUrl = course.getThumbnail();
@@ -207,7 +206,7 @@ public class CourseService {
             CollectedCourseDto.ListCourse listCourse = new CollectedCourseDto().new ListCourse();
             Course course = courseDao.findById(Long.parseLong(courseIdList[i]));
             listCourse.courseId = course.getId();
-            listCourse.courseName = course.getCourse_name();
+            listCourse.courseName = course.getCoursename();
             listCourse.pubdate = course.getCreate_date().toString();
             listCourse.thumbnailUrl = course.getThumbnail();
             listCourse.num = course.getNum();

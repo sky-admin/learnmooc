@@ -18,7 +18,7 @@ public class CourseDetailService {
     public CourseDetailDto getCourseInfo(long id) {
         Course course = courseDao.findById(id);
         CourseDetailDto courseDetailDto = new CourseDetailDto();
-        courseDetailDto.courseName = course.getCourse_name();
+        courseDetailDto.courseName = course.getCoursename();
         courseDetailDto.detail = course.getDescription();
         CourseDetailDto.TeacherInfo teacherInfo = new CourseDetailDto().new TeacherInfo();
         teacherInfo.name = course.getUser_name();

@@ -23,7 +23,7 @@ public class SearchService {
 //        for (Course course : courseList) {
 //            SearchResultDto.SearchInfo searchInfo = new SearchResultDto().new SearchInfo();
 //            searchInfo.courseId = course.getId();
-//            searchInfo.courseName = course.getCourse_name();
+//            searchInfo.courseName = course.getCoursename();
 //            searchInfo.num = course.getNum();
 //            searchInfo.thumbnailUrl = course.getThumbnail();
 //            searchInfo.pubdate = course.getCreate_date().toString();

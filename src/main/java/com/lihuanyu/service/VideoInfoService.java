@@ -18,7 +18,7 @@ public class VideoInfoService {
     public VideoInfoDto getCourseVideoInfo(long id) {
         Course course = courseDao.findById(id);
         VideoInfoDto videoInfoDto = new VideoInfoDto();
-        videoInfoDto.courseName = course.getCourse_name();
+        videoInfoDto.courseName = course.getCoursename();
         videoInfoDto.videoUrl = course.getCourse_video_url();
         return videoInfoDto;
     }

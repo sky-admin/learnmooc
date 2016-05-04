@@ -14,7 +14,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String course_name;
+    private String coursename;
     private String description;//课程描述
     private String classification;//课程所属类别
     private int user_id;//创建课程的用户id
@@ -45,8 +45,8 @@ public class Course {
         return classifyName;
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public String getCoursename() {
+        return coursename;
     }
 
     public String getDescription() {
@@ -85,8 +85,8 @@ public class Course {
         this.id = id;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
     }
 
     public void setDescription(String description) {
