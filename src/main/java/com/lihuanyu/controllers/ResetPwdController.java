@@ -45,7 +45,6 @@ public class ResetPwdController {
      * 密码重置页面回执处理
      */
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    @ResponseBody
     public String resetPassword(HttpServletRequest request, String psw) throws UnsupportedEncodingException {
         String mail = (String)request.getSession().getAttribute("mail");
         CustomUser user = customUserDao.findByMail(mail);

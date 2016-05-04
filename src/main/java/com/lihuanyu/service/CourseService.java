@@ -2,6 +2,7 @@ package com.lihuanyu.service;
 
 import com.lihuanyu.dao.CourseDao;
 import com.lihuanyu.dao.HistoryDao;
+import com.lihuanyu.dto.CourseClassify;
 import com.lihuanyu.dto.CourseList;
 import com.lihuanyu.dto.MainCourseJson;
 import com.lihuanyu.model.Course;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by skyADMIN on 16/5/1.
@@ -26,6 +28,39 @@ public class CourseService {
 
     private Sort sortByCreateDateDesc() {
         return new Sort(Sort.Direction.DESC, "createDate");
+    }
+
+    private Sort sortByClassifyNameDesc() {
+        return new Sort(Sort.Direction.DESC, "classifyName");
+    }
+
+    public CourseClassify getCourseClassify(){
+        CourseClassify courseClassify = new CourseClassify();
+        courseClassify.classifyData = new ArrayList<>();
+        Iterable<Course> courses = courseDao.findAll(sortByClassifyNameDesc());
+
+        CourseClassify.ClassifyData classifyData = new CourseClassify().new ClassifyData();
+        for (Course course : courses){
+            if (classifyData.classifyName.equals(course.getClassifyName())){
+                CourseClassify.CourseInfo courseInfo = new CourseClassify().new CourseInfo();
+                courseInfo.courseId = course.getId();
+                courseInfo.courseName = course.getCourse_name();
+                courseInfo.num = course.getNum();
+                courseInfo.thumbnail = course.getThumbnail();
+                classifyData.courseInfo.add(courseInfo);
+            }else {
+                classifyData = new CourseClassify().new ClassifyData();
+                classifyData.courseInfo = new ArrayList<>();
+                classifyData.classifyName = course.getClassifyName();
+                CourseClassify.CourseInfo courseInfo = new CourseClassify().new CourseInfo();
+                courseInfo.courseId = course.getId();
+                courseInfo.courseName = course.getCourse_name();
+                courseInfo.num = course.getNum();
+                courseInfo.thumbnail = course.getThumbnail();
+                classifyData.courseInfo.add(courseInfo);
+            }
+        }
+        return courseClassify;
     }
 
     public CourseList getCouseListByPage(int page) {
