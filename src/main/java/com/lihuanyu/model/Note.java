@@ -19,6 +19,8 @@ public class Note {
     private String courseOrExptName;//该笔记对应的课程/实验
     private Date createDate;
 
+    public Note(){};
+
     public Note(long customUserId, String noteContent, String courseOrExptName, Date createDate) {
         this.customUserId = customUserId;
         this.noteContent = noteContent;

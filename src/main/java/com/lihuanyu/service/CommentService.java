@@ -3,6 +3,7 @@ package com.lihuanyu.service;
 import com.lihuanyu.dao.CommentDao;
 import com.lihuanyu.dao.CustomUserDao;
 import com.lihuanyu.dto.CommentDto;
+import com.lihuanyu.dto.CommentNumDto;
 import com.lihuanyu.model.Comment;
 import com.lihuanyu.model.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,10 @@ public class CommentService {
     /**
      *获取某个用户的评论总数
      */
-    public int getOnesCommentNum(long id) {
+    public CommentNumDto getOnesCommentNum(long id) {
         List<Comment> commentList = commentDao.findByFromUserId(id);
-        return commentList.size();
+        CommentNumDto commentNumDto = new CommentNumDto();
+        commentNumDto.commentNum = commentList.size();
+        return commentNumDto;
     }
 }

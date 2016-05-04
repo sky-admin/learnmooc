@@ -1,10 +1,13 @@
 package com.lihuanyu.service;
 
+import com.lihuanyu.dao.CollectedCourseDao;
 import com.lihuanyu.dao.CourseDao;
 import com.lihuanyu.dao.HistoryDao;
 import com.lihuanyu.dto.CourseClassify;
+import com.lihuanyu.dto.CollectedCourseDto;
 import com.lihuanyu.dto.CourseList;
 import com.lihuanyu.dto.MainCourseJson;
+import com.lihuanyu.model.CollectedCourse;
 import com.lihuanyu.model.Course;
 import com.lihuanyu.model.History;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class CourseService {
 
     @Autowired
     private CourseDao courseDao;
+
+    @Autowired
+    private CollectedCourseDao collectedCourseDao;
 
     private Sort sortByCreateDateDesc() {
         return new Sort(Sort.Direction.DESC, "createDate");
@@ -143,5 +149,55 @@ public class CourseService {
         Iterable<History> histories = historyDao.findByCustomUserId(uid, sortByCreateDateDesc());
 
     }
+
+    public void saveCollection(long userId, long courseId) {
+        CollectedCourse collectedCourse = collectedCourseDao.findByUserId(userId);
+        if (collectedCourse == null) {
+            collectedCourse = new CollectedCourse(userId, courseId + "");
+            collectedCourseDao.save(collectedCourse);
+        } else {
+            String courseList = collectedCourse.getCourseList();
+            StringBuilder builder = new StringBuilder(courseList);
+            builder.insert(0, courseId + ";");
+            collectedCourse.setCourseList(builder.toString());
+            collectedCourseDao.save(collectedCourse);
+        }
+    }
+
+    public void removeCollection(long userId, long courseId) {
+        CollectedCourse collectedCourse = collectedCourseDao.findByUserId(userId);
+        if (collectedCourse != null) {
+            String courseList = collectedCourse.getCourseList();
+            if (courseList.contains(";")) {
+                courseList = courseList.replace(courseId + ";", "");
+            } else {
+                courseList = courseList.replace(courseId + "", "");
+            }
+            collectedCourse.setCourseList(courseList);
+            collectedCourseDao.save(collectedCourse);
+        }
+    }
+
+    public CollectedCourseDto getCollectedCourse(long userId) {
+        CollectedCourse collectedCourse = collectedCourseDao.findByUserId(userId);
+        String courseList = collectedCourse.getCourseList();
+        CollectedCourseDto collectedCourseDto = new CollectedCourseDto();
+
+        String[] courseIdList = courseList.split(";");
+        ArrayList< CollectedCourseDto.ListCourse> list = new ArrayList<>();
+        for (int i = 0; i < courseIdList.length; i++) {
+            CollectedCourseDto.ListCourse listCourse = new CollectedCourseDto().new ListCourse();
+            Course course = courseDao.findById(Long.parseLong(courseIdList[i]));
+            listCourse.courseId = course.getId();
+            listCourse.courseName = course.getCourse_name();
+            listCourse.pubdate = course.getCreate_date().toString();
+            listCourse.thumbnailUrl = course.getThumbnail();
+            listCourse.num = course.getNum();
+            list.add(listCourse);
+        }
+        collectedCourseDto.listCourse = list;
+        return collectedCourseDto;
+    }
+
 
 }

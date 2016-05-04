@@ -19,6 +19,11 @@ public class Score {
     private int scores;//成绩
     private Date createDate;
 
+
+    public Score(){
+
+    }
+
     public Score(long customUserId, long courseOrExptId, int scores) {
         this.customUserId = customUserId;
         this.courseOrExptId = courseOrExptId;
