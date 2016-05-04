@@ -2,6 +2,7 @@ package com.lihuanyu.dao;
 
 import com.lihuanyu.model.Course;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,5 +17,5 @@ public interface CourseDao extends CrudRepository<Course, Long> {
 
     public Iterable<Course> findAll(Sort orders);
 
-    //public Iterable<Course> findByCourse_nameLike(String courseName);
+    public Iterable<Course> findByCourse__name(String course_name);
 }

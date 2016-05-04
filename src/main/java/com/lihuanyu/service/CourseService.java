@@ -71,7 +71,7 @@ public class CourseService {
                 classifyData.courseInfo.add(courseInfo);
             }
         }
-
+        courseClassify.classifyData.add(classifyData);
         return courseClassify;
     }
 
