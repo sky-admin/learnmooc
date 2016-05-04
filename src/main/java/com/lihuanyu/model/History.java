@@ -19,6 +19,8 @@ public class History {
     private String courseOrExptName;//学习的课程/实验名
     private Date createDate;
 
+    public History(){}
+
     public History(long customUserId, long courseOrExptId, String courseOrExptName, Date createDate) {
         this.customUserId = customUserId;
         this.courseOrExptId = courseOrExptId;
