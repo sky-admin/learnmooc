@@ -1,6 +1,7 @@
 package com.lihuanyu.controllers;
 
 import com.lihuanyu.dto.CollectedCourseDto;
+import com.lihuanyu.dto.CourseClassify;
 import com.lihuanyu.dto.CourseList;
 import com.lihuanyu.dto.MainCourseJson;
 import com.lihuanyu.service.CourseService;
@@ -17,6 +18,11 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @RequestMapping("/classify")
+    public CourseClassify getClassify() {
+        return courseService.getCourseClassify();
+    }
 
     @RequestMapping("/maincourse")
     public MainCourseJson getMainCourse() {

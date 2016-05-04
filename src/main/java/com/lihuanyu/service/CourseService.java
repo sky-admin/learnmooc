@@ -46,7 +46,9 @@ public class CourseService {
         Iterable<Course> courses = courseDao.findAll(sortByClassifyNameDesc());
 
         CourseClassify.ClassifyData classifyData = new CourseClassify().new ClassifyData();
+        classifyData.classifyName = "";
         for (Course course : courses){
+
             if (classifyData.classifyName.equals(course.getClassifyName())){
                 CourseClassify.CourseInfo courseInfo = new CourseClassify().new CourseInfo();
                 courseInfo.courseId = course.getId();
@@ -55,6 +57,9 @@ public class CourseService {
                 courseInfo.thumbnail = course.getThumbnail();
                 classifyData.courseInfo.add(courseInfo);
             }else {
+                if (classifyData.courseInfo!=null) {
+                    courseClassify.classifyData.add(classifyData);
+                }
                 classifyData = new CourseClassify().new ClassifyData();
                 classifyData.courseInfo = new ArrayList<>();
                 classifyData.classifyName = course.getClassifyName();
@@ -66,6 +71,7 @@ public class CourseService {
                 classifyData.courseInfo.add(courseInfo);
             }
         }
+
         return courseClassify;
     }
 
