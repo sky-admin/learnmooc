@@ -16,10 +16,10 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public SearchResultDto getSearchResult(String courseName) {
-        SearchResultDto searchResult = searchService.getSearchResult(courseName);
-        return searchResult;
-
-    }
+//    @RequestMapping(value = "/search", method = RequestMethod.GET)
+//    public SearchResultDto getSearchResult(String courseName) {
+//        //SearchResultDto searchResult = searchService.getSearchResult(courseName);
+//        //return searchResult;
+//
+//    }
 }

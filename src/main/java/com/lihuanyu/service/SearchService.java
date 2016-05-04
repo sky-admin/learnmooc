@@ -16,21 +16,21 @@ public class SearchService {
     @Autowired
     private CourseDao courseDao;
 
-    public SearchResultDto getSearchResult(String courseName) {
-        Iterable<Course> courseList = courseDao.findByCourse__name(courseName);
-        SearchResultDto searchResultDto = new SearchResultDto();
-        ArrayList<SearchResultDto.SearchInfo> list = new ArrayList<>();
-        for (Course course : courseList) {
-            SearchResultDto.SearchInfo searchInfo = new SearchResultDto().new SearchInfo();
-            searchInfo.courseId = course.getId();
-            searchInfo.courseName = course.getCourse_name();
-            searchInfo.num = course.getNum();
-            searchInfo.thumbnailUrl = course.getThumbnail();
-            searchInfo.pubdate = course.getCreate_date().toString();
-            list.add(searchInfo);
-        }
-        searchResultDto.searchResult = list;
-        return searchResultDto;
-    }
+//    public SearchResultDto getSearchResult(String courseName) {
+//        Iterable<Course> courseList = courseDao.findById(courseName);
+//        SearchResultDto searchResultDto = new SearchResultDto();
+//        ArrayList<SearchResultDto.SearchInfo> list = new ArrayList<>();
+//        for (Course course : courseList) {
+//            SearchResultDto.SearchInfo searchInfo = new SearchResultDto().new SearchInfo();
+//            searchInfo.courseId = course.getId();
+//            searchInfo.courseName = course.getCourse_name();
+//            searchInfo.num = course.getNum();
+//            searchInfo.thumbnailUrl = course.getThumbnail();
+//            searchInfo.pubdate = course.getCreate_date().toString();
+//            list.add(searchInfo);
+//        }
+//        searchResultDto.searchResult = list;
+//        return searchResultDto;
+//    }
 
 }

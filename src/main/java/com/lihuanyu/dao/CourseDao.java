@@ -17,5 +17,6 @@ public interface CourseDao extends CrudRepository<Course, Long> {
 
     public Iterable<Course> findAll(Sort orders);
 
-    public Iterable<Course> findByCourse__name(String course_name);
+    @Query("select * from Course where ")
+    public Iterable<Course> findByCoursename(String course_name);
 }

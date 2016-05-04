@@ -47,6 +47,18 @@ public class CourseService {
 
         CourseClassify.ClassifyData classifyData = new CourseClassify().new ClassifyData();
         classifyData.classifyName = "";
+        String[] pic = new String[]{
+                "http://120.27.47.134/html.png",
+                "http://120.27.47.134/html.png",
+                "http://120.27.47.134/html.png",
+                "http://120.27.47.134/html.png",
+                "http://120.27.47.134/android.png",
+                "http://120.27.47.134/angularJs.png",
+                "http://120.27.47.134/android.png",
+                "http://120.27.47.134/android.png",
+                "http://120.27.47.134/angularJs.png",
+                "http://120.27.47.134/android.png",
+        };
         for (Course course : courses){
 
             if (classifyData.classifyName.equals(course.getClassifyName())){
@@ -54,7 +66,7 @@ public class CourseService {
                 courseInfo.courseId = course.getId();
                 courseInfo.courseName = course.getCourse_name();
                 courseInfo.num = course.getNum();
-                courseInfo.thumbnail = course.getThumbnail();
+                courseInfo.thumbnail = pic[(int) course.getId()-1];
                 classifyData.courseInfo.add(courseInfo);
             }else {
                 if (classifyData.courseInfo!=null) {
@@ -67,7 +79,7 @@ public class CourseService {
                 courseInfo.courseId = course.getId();
                 courseInfo.courseName = course.getCourse_name();
                 courseInfo.num = course.getNum();
-                courseInfo.thumbnail = course.getThumbnail();
+                courseInfo.thumbnail = pic[(int) course.getId()-1];
                 classifyData.courseInfo.add(courseInfo);
             }
         }
