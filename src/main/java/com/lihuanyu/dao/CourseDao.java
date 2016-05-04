@@ -15,4 +15,6 @@ public interface CourseDao extends CrudRepository<Course, Long> {
     public Iterable<Course> findByIsRecommend(boolean isRecommend);
 
     public Iterable<Course> findAll(Sort orders);
+
+    public Iterable<Course> findByCourse_nameLike(String courseName);
 }
