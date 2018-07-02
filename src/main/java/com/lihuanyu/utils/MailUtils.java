@@ -22,8 +22,8 @@ public class MailUtils {
     public static final String HOST = "smtp.sina.com";
     public static final String PROTOCOL = "smtp";
     public static final int PORT = 25;
-    public static final String FROM = "liutaizhu@sina.com";//发件人的email
-    public static final String PWD = "XZ617716";//发件人密码
+    public static final String FROM = "****@sina.com";//发件人的email
+    public static final String PWD = "***";//发件人密码
 
     /**
      * 获取Session
